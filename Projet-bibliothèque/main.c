@@ -26,7 +26,7 @@ char* creerTab1D(int taille){
 }
 void initTab1D(char* tab, int taille){
     if(taille > 0){
-        *(tab) = '*';
+        *tab = '*';
         initTab1D(tab + 1, taille - 1);
     }
 }
@@ -64,7 +64,7 @@ void insererCharDansTab2D(char **tab, int taillex, int tailley, int posx, int po
         }
         else if(DEBUG) printf("\nLa position n'est pas correcte (à l'extérieur du tableau)\n");
     }
-    else printf("\nLa position n'est pas correcte (inférieure à 0)\n");
+    else if(DEBUG) printf("\nLa position n'est pas correcte (inférieure à 0)\n");
 }
 
 
