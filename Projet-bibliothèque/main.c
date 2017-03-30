@@ -2,10 +2,6 @@
 //  main.c
 //  Projet-bibliothèque
 //
-//  Created by Paul-Henri Zimmerlin on 16/03/2017.
-//  Copyright © 2017 Paul-Henri Zimmerlin. All rights reserved.
-//
-//
 
 #include <stdio.h>
 #include <stdlib.h>
