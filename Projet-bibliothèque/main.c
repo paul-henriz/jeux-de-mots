@@ -9,13 +9,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#define FLAG_HORIZONTAL 1
+#define FLAG_VERTICAL 0
 
 char* creerTab1D(int taille);
 void initTab1D(char* tab, int taille);
 void affichageTab1D(char* tab, int taille);
 char** creerTab2D(int taillex, int tailley);
 void init2D(char **x, int taillex, int tailley);
-void affichageTab2D(char** tab, int taillex, int tailley);
+void AffichageTab2D(char **tab, int ligne, int colonne, int i, int j);
+void insererCharDansTab2D(char ***tab, int *taillex, int *tailley, int posx, int posy, char c);
+void insererMotDansTab2D(char ***tab, int *taillex, int *tailley, int posx, int posy, int horizontal, char *mot);
+char accesTad2D(char **tab, int taillex, int tailley, int posx, int posy);
+
+
 
 // Alloue dynamiquement un tableau 1D de taille donnée et l'initialise
 char* creerTab1D(int taille){
@@ -119,16 +126,12 @@ char accesTad2D(char **tab, int taillex, int tailley, int posx, int posy){
 int main(int argc, const char * argv[]) {
     int taillex = 5;
     int tailley = 5;
-    //affichageTab1D(creerTab1D(4), 4);
-    char** test = creerTab2D(taillex, tailley);
     
-    AffichageTab2D(test, taillex, tailley, 0, 0);
-    char* machin = "coucou";
-    printf("\n\n");
-    insererMotDansTab2D(&test, &taillex, &tailley, 2, 2, 0, machin);
+    char** tab_test = creerTab2D(taillex, tailley);
+    char* mot_a_inserer = "coucou";
+    insererMotDansTab2D(&tab_test, &taillex, &tailley, 2, 2, FLAG_HORIZONTAL, mot_a_inserer);
     
-    AffichageTab2D(test, taillex, tailley, 0, 0);
-    //printf("Test : %c\n", accesTad2D(test, 4, 5, 2, 2));
+    AffichageTab2D(tab_test, taillex, tailley, 0, 0);
 
     return 0;
     
