@@ -17,17 +17,22 @@ char** creerTab2D(int taillex, int tailley);
 void init2D(char **x, int taillex, int tailley);
 void affichageTab2D(char** tab, int taillex, int tailley);
 
+// Alloue dynamiquement un tableau 1D de taille donnée et l'initialise
 char* creerTab1D(int taille){
     char* tab = malloc(taille * sizeof(char));
     initTab1D(tab, taille);
     return tab;
 }
+
+// Initialise un tableau 1D avec des "*"
 void initTab1D(char* tab, int taille){
     if(taille > 0){
         *tab = '*';
         initTab1D(tab + 1, taille - 1);
     }
 }
+
+// Affiche un tableau 1D de taille donnée
 void affichageTab1D(char* tab, int taille){
     if(*tab){
         printf("%c ", *tab);
@@ -35,12 +40,14 @@ void affichageTab1D(char* tab, int taille){
     }
 }
 
+// Créé un tableau 2D de taille donnée et l'initialise
 char** creerTab2D(int taillex, int tailley){
     char** x = malloc(taillex * sizeof(char*));
     init2D(x, taillex, tailley);
     return x;
 }
 
+// Initialise chaque dimension d'un tableau 2D avec des "*"
 void init2D(char **x, int taillex, int tailley){
     if(taillex > 0){
         *x = creerTab1D(tailley);
@@ -49,6 +56,7 @@ void init2D(char **x, int taillex, int tailley){
     
 }
 
+// Affiche un tableau 2D
 void AffichageTab2D(char **tab, int ligne, int colonne, int i, int j){
     if((i<ligne) && (j<colonne)){
         printf("%c", *(*(tab +i) + j));
@@ -60,47 +68,50 @@ void AffichageTab2D(char **tab, int ligne, int colonne, int i, int j){
     }
 }
 
+
+// Insère un caractère dans le tableau, et agrandi le tableau au besoin
 void insererCharDansTab2D(char ***tab, int *taillex, int *tailley, int posx, int posy, char c){
-    if(posx >= 0 && posy >= 0){
+    if(posx >= 0 && posy >= 0){ // On vérifie que la position est bien positive
         
-        if (posx + 1 > *taillex) {
-            *tab = realloc(*tab, (posx + 1) * sizeof(char **));
+        if (posx + 1 > *taillex) { // On traite le cas où il faut rajouter des lignes
+            *tab = realloc(*tab, (posx + 1) * sizeof(char **)); // On rajoute les cases manquantes
             
-            for(int i = *taillex; i < posx + 1; i++){
+            for(int i = *taillex; i < posx + 1; i++){ // On alloue et on initialise la dimension
                 (*tab)[i] = creerTab1D(*tailley);
             }
             
-            *taillex = posx + 1;
+            *taillex = posx + 1; // On change la définition de la taille du tableau
         }
-        if (posy + 1 > *tailley){
-            for(int ligne = 0; ligne < *taillex; ligne++){
-                (*tab)[ligne] = realloc((*tab)[ligne], (posy + 1) * sizeof(char *));
-                for(int colonne = *tailley; colonne < (posy + 1); colonne++){
+        if (posy + 1 > *tailley){ // On traite le cas où il faut rajouter des colonnes
+            for(int ligne = 0; ligne < *taillex; ligne++){ // On parcours les lignes
+                (*tab)[ligne] = realloc((*tab)[ligne], (posy + 1) * sizeof(char *)); // On rajoute les cases manquantes sur chaque ligne
+                for(int colonne = *tailley; colonne < (posy + 1); colonne++){ // On initialise les cases nouvellement créées
                     (*tab)[ligne][colonne] = '*';
                 }
             }
-            *tailley = posy + 1;
+            *tailley = posy + 1; // On change la définition de la taille du tableau
         }
         
-        (*tab)[posx][posy] = c;
+        (*tab)[posx][posy] = c; // On insère le caractère
     }
-    else if(DEBUG) printf("\nLa position n'est pas correcte (inférieure à 0)\n");
+    else if(DEBUG) printf("\nLa position n'est pas correcte (inférieure à 0)\n"); // On prévient qu'on ne traitera pas le cas où la cible est au dessus, ou à gauche du tableau
 }
 
+// Insère un mot dans le tableau 2D
 void insererMotDansTab2D(char ***tab, int *taillex, int *tailley, int posx, int posy, int horizontal, char *mot){
-    while(*mot){
-        insererCharDansTab2D(tab, taillex, tailley, posx, posy, *mot);
+    while(*mot){ // Tant qu'on ne rencontre pas le caractère nul
+        insererCharDansTab2D(tab, taillex, tailley, posx, posy, *mot); // On réutilise la sous-fonction pour le caractère courant
         mot++;
-        if (horizontal) posy++;
-        else posx++;
+        if (horizontal) posy++; // On fait un saut de ligne
+        else posx++; // On passe à la colonne suivante
         
     }
 }
 
-
+// Permet de récupèrer le contenu d'une case du tableau, et gère le cas où elle est en dehors du tableau
 char accesTad2D(char **tab, int taillex, int tailley, int posx, int posy){
-    if(posx < (taillex - 1) && posy < (tailley - 1)) return *(*(tab + posx) + posy);
-    else return '*';
+    if(posx < (taillex - 1) && posy < (tailley - 1)) return *(*(tab + posx) + posy); // On retourne le contenu de la case
+    else return '*'; // Pour éviter un segmentation fault, on retourne le caractère '*' qui représente la valeur par défaut
 }
 
 
