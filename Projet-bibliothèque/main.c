@@ -62,7 +62,7 @@ void init2D(char **x, int taillex, int tailley){
 // Affiche un tableau 2D
 void AffichageTab2D(char **tab, int ligne, int colonne, int i, int j){
     if((i<ligne) && (j<colonne)){
-        printf("%c", *(*(tab +i) + j));
+        printf("%c ", *(*(tab +i) + j));
         AffichageTab2D(tab, ligne, colonne, i, j+1);
     }
     else if(i < ligne){
@@ -124,8 +124,10 @@ int main(int argc, const char * argv[]) {
     int tailley = 5;
     
     char** tab_test = creerTab2D(taillex, tailley);
-    char* mot_a_inserer = "coucou";
-    insererMotDansTab2D(&tab_test, &taillex, &tailley, 2, 2, FLAG_HORIZONTAL, mot_a_inserer);
+
+    insererMotDansTab2D(&tab_test, &taillex, &tailley, 0, 0, FLAG_HORIZONTAL, "PLATYPUS");
+    insererMotDansTab2D(&tab_test, &taillex, &tailley, 0, 0, FLAG_VERTICAL, "PARFAIT");
+
     
     AffichageTab2D(tab_test, taillex, tailley, 0, 0);
 
