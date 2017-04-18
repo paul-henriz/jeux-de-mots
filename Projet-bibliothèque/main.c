@@ -20,9 +20,6 @@ char accesTad2D(char **tab, int taillex, int tailley, int posx, int posy);
 int NombreChar(char* chaine);
 int TestUnitaires();
 
-/* J'ai la même chose juste des noms différents */
-
-
 
 // Alloue dynamiquement un tableau 1D de taille donnée et l'initialise
 char* creerTab1D(int taille){
@@ -102,14 +99,7 @@ void insererCharDansTab2D(char ***tab, int *taillex, int *tailley, int posx, int
         (*tab)[posx][posy] = c; // On insère le caractère
     }
     else if(DEBUG) printf("\nLa position n'est pas correcte (inférieure à 0)\n"); // On prévient qu'on ne traitera pas le cas où la cible est au dessus, ou à gauche du tableau
-} 
-
-
-
-/*Ici j'ai fais sans debug et c'est moin propre, mes talents d'enfant prodige s'amenuisent --" */ 
-
-
-
+}
 
 // Insère un mot dans le tableau 2D
 void insererMotDansTab2D(char ***tab, int *taillex, int *tailley, int posx, int posy, int horizontal, char *mot){
@@ -171,7 +161,7 @@ int TestUnitaires(){
     
     taillex_ancienne = taillex;
     tailley_ancienne = tailley;
-
+    
     insererMotDansTab2D(&tab_test, &taillex, &tailley, 0, 0, FLAG_VERTICAL, chaine_test);
     if(taillex == taillex_ancienne) return 1;
     else printf("Taille x modifiée : OK\n");
@@ -182,14 +172,10 @@ int TestUnitaires(){
         chaine_test++;
     }
     printf("Vérification de l'insertion de la chaine verticale: OK\n");
-
+    
     printf("\nTous les tests ont été passés avec succès !\n\n");
     return 0;
 }
-
-
-
-/*Et ça j'avais pas fais*/
 
 
 
@@ -201,10 +187,10 @@ int main(int argc, const char * argv[]) {
     char** tableau = creerTab2D(taillex, tailley);
     insererMotDansTab2D(&tableau, &taillex, &tailley, 0, 0, FLAG_HORIZONTAL, "PLATYPUS");
     insererMotDansTab2D(&tableau, &taillex, &tailley, 0, 0, FLAG_VERTICAL, "PARFAIT");
-
+    
     
     AffichageTab2D(tableau, taillex, tailley, 0, 0);
-
+    
     return 0;
     
 }
