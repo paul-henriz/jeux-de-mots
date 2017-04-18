@@ -17,7 +17,8 @@ void AffichageTab2D(char **tab, int ligne, int colonne, int i, int j);
 void insererCharDansTab2D(char ***tab, int *taillex, int *tailley, int posx, int posy, char c);
 void insererMotDansTab2D(char ***tab, int *taillex, int *tailley, int posx, int posy, int horizontal, char *mot);
 char accesTad2D(char **tab, int taillex, int tailley, int posx, int posy);
-
+int NombreChar(char* chaine);
+int TestUnitaires();
 
 
 // Alloue dynamiquement un tableau 1D de taille donnée et l'initialise
@@ -117,19 +118,78 @@ char accesTad2D(char **tab, int taillex, int tailley, int posx, int posy){
     else return '*'; // Pour éviter un segmentation fault, on retourne le caractère '*' qui représente la valeur par défaut
 }
 
+// Compte le nombre de caractère dans une chaine
+int NombreChar(char* chaine){
+    int i = 0;
+    while(*chaine){
+        i++;
+        chaine++;
+    }
+    return i;
+}
+
+
+// Test unitaires - retourne 0 si tous les tests sont passés avec succès
+int TestUnitaires(){
+    int taillex = 1;
+    int tailley = 1;
+    char** tab_test = creerTab2D(taillex, taillex);
+    
+    if(tab_test[0][0] != '*') return 1;
+    else printf("tab[0][0] = * : OK\n");
+    
+    insererCharDansTab2D(&tab_test, &taillex, &tailley, 0, 0, 'c');
+    if(tab_test[0][0] != 'c') return 1;
+    else printf("tab[0][0] = c : OK\n");
+    if(taillex != 1 || tailley != 1) return 1;
+    else printf("Taille 1x1 : OK\n");
+    
+    int taillex_ancienne = taillex;
+    int tailley_ancienne = tailley;
+    
+    char* chaine_test = "PLATYPUS";
+    insererMotDansTab2D(&tab_test, &taillex, &tailley, 0, 0, FLAG_HORIZONTAL, chaine_test);
+    if(taillex != taillex_ancienne) return 1;
+    else printf("Taille x instacte : OK\n");
+    if(tailley == tailley_ancienne) return 1;
+    else printf("Taille y modifiée : OK\n");
+    for(int i = 0; i < NombreChar(chaine_test); i++){
+        if(tab_test[0][i] != *chaine_test) return 1;
+        chaine_test++;
+    }
+    printf("Vérification de l'insertion de la chaine horizontale: OK\n");
+    
+    taillex_ancienne = taillex;
+    tailley_ancienne = tailley;
+
+    insererMotDansTab2D(&tab_test, &taillex, &tailley, 0, 0, FLAG_VERTICAL, chaine_test);
+    if(taillex == taillex_ancienne) return 1;
+    else printf("Taille x modifiée : OK\n");
+    if(tailley != tailley_ancienne) return 1;
+    else printf("Taille y intacte : OK\n");
+    for(int i = 0; i < NombreChar(chaine_test); i++){
+        if(tab_test[i][0] != *chaine_test) return 1;
+        chaine_test++;
+    }
+    printf("Vérification de l'insertion de la chaine verticale: OK\n");
+
+    printf("\nTous les tests ont été passés avec succès !\n\n");
+    return 0;
+}
+
 
 
 int main(int argc, const char * argv[]) {
+    if(DEBUG) if(TestUnitaires()) return 0;
     int taillex = 5;
     int tailley = 5;
     
-    char** tab_test = creerTab2D(taillex, tailley);
-
-    insererMotDansTab2D(&tab_test, &taillex, &tailley, 0, 0, FLAG_HORIZONTAL, "PLATYPUS");
-    insererMotDansTab2D(&tab_test, &taillex, &tailley, 0, 0, FLAG_VERTICAL, "PARFAIT");
+    char** tableau = creerTab2D(taillex, tailley);
+    insererMotDansTab2D(&tableau, &taillex, &tailley, 0, 0, FLAG_HORIZONTAL, "PLATYPUS");
+    insererMotDansTab2D(&tableau, &taillex, &tailley, 0, 0, FLAG_VERTICAL, "PARFAIT");
 
     
-    AffichageTab2D(tab_test, taillex, tailley, 0, 0);
+    AffichageTab2D(tableau, taillex, tailley, 0, 0);
 
     return 0;
     
