@@ -20,6 +20,9 @@ char accesTad2D(char **tab, int taillex, int tailley, int posx, int posy);
 int NombreChar(char* chaine);
 int TestUnitaires();
 
+/* J'ai la même chose juste des noms différents */
+
+
 
 // Alloue dynamiquement un tableau 1D de taille donnée et l'initialise
 char* creerTab1D(int taille){
@@ -99,7 +102,14 @@ void insererCharDansTab2D(char ***tab, int *taillex, int *tailley, int posx, int
         (*tab)[posx][posy] = c; // On insère le caractère
     }
     else if(DEBUG) printf("\nLa position n'est pas correcte (inférieure à 0)\n"); // On prévient qu'on ne traitera pas le cas où la cible est au dessus, ou à gauche du tableau
-}
+} 
+
+
+
+/*Ici j'ai fais sans debug et c'est moin propre, mes talents d'enfant prodige s'amenuisent --" */ 
+
+
+
 
 // Insère un mot dans le tableau 2D
 void insererMotDansTab2D(char ***tab, int *taillex, int *tailley, int posx, int posy, int horizontal, char *mot){
@@ -176,6 +186,10 @@ int TestUnitaires(){
     printf("\nTous les tests ont été passés avec succès !\n\n");
     return 0;
 }
+
+
+
+/*Et ça j'avais pas fais*/
 
 
 
