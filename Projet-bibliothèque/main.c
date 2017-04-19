@@ -8,7 +8,8 @@
 #include <string.h>
 #define FLAG_HORIZONTAL 1
 #define FLAG_VERTICAL 0
-#define DEBUG 0
+// Pour l'utilisation en compilation manuelle (en dehors de l'IDE)
+//#define DEBUG 0
 
 char* creerTab1D(int taille);
 void initTab1D(char* tab, int taille);
