@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5CEF36BB1E7AE29A00E58958 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF36BA1E7AE29A00E58958 /* main.c */; };
+		5C99DF011EA7C06C00A1BDC0 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF36BA1E7AE29A00E58958 /* main.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,6 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5C82A2081EA7D44A0036BAA7 /* dico.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dico.txt; path = "../../../../../../Library/Developer/Xcode/DerivedData/Projet-bibliothèque-cezokjcqdgrmqpcvnglctfpfggdm/Build/Products/Release/dico.txt"; sourceTree = "<group>"; };
 		5CEF36B71E7AE29A00E58958 /* Projet-bibliothèque */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Projet-bibliothèque"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CEF36BA1E7AE29A00E58958 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,6 +58,7 @@
 		5CEF36B91E7AE29A00E58958 /* Projet-bibliothèque */ = {
 			isa = PBXGroup;
 			children = (
+				5C82A2081EA7D44A0036BAA7 /* dico.txt */,
 				5CEF36BA1E7AE29A00E58958 /* main.c */,
 			);
 			path = "Projet-bibliothèque";
@@ -119,7 +121,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CEF36BB1E7AE29A00E58958 /* main.c in Sources */,
+				5C99DF011EA7C06C00A1BDC0 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
