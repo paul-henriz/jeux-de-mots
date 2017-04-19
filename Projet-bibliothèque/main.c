@@ -8,6 +8,7 @@
 #include <string.h>
 #define FLAG_HORIZONTAL 1
 #define FLAG_VERTICAL 0
+#define DEBUG 0
 
 char* creerTab1D(int taille);
 void initTab1D(char* tab, int taille);
@@ -168,20 +169,71 @@ int TestUnitaires(){
     return 0;
 }
 
+//
+void RemplirLexique(char ***tab, int *taillex, int *tailley, int posx, int posy, char c){
+        if (posx + 1 > *taillex) { // On traite le cas où il faut rajouter des lignes
+            *tab = realloc(*tab, (posx + 1) * sizeof(char **)); // On rajoute les cases manquantes
+            
+            (*tab)[posx] = creerTab1D(*tailley);
+            
+            
+            *taillex = posx + 1; // On change la définition de la taille du tableau
+        }
+        if (posy + 1 > *tailley){ // On traite le cas où il faut rajouter des colonnes
+                (*tab)[posx] = realloc((*tab)[posx], (posy + 1) * sizeof(char *)); // On rajoute les cases manquantes
+            *tailley = posy + 1; // On change la définition de la taille du tableau
+        }
+        (*tab)[posx][posy] = c; // On insère le caractère
+}
 
+
+// Lecture du fichier de dictionnaire
+char **load_lexicon(char *filename){
+    FILE *dictionnaire = NULL;
+    dictionnaire = fopen(filename, "r");
+    char c;
+    int i = 0,j = 0;
+    char** tab = creerTab2D(1, 1);
+    int taillex = 1, tailley = 1;
+    if(dictionnaire){
+        printf("Le fichier est ouvert\n");
+        do
+        {
+            //Fin = strrchr(Ligne,'\n');
+            
+            
+            c = fgetc(dictionnaire); // On lit le caractère
+            if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+                printf("%c", c); // On l'affiche
+                RemplirLexique(&tab, &taillex, &tailley, i, j++, c);
+            }
+            else if(c == '\n'){
+                printf("\n");
+                i++;
+                j = 0;
+            }
+        } while (c != EOF);
+        printf("\n");
+    }
+    else printf("Le fichier n'a pas pu être ouvert\n");
+    fclose(dictionnaire);
+    //AffichageTab2D(tab, taillex, tailley, 0, 0);
+    return tab;
+}
 
 int main(int argc, const char * argv[]) {
+    
+    char** test =load_lexicon("dico.txt");
     if(DEBUG) if(TestUnitaires()) return 0;
     int taillex = 5;
     int tailley = 5;
-    
+
     char** tableau = creerTab2D(taillex, tailley);
-    insererMotDansTab2D(&tableau, &taillex, &tailley, 0, 0, FLAG_HORIZONTAL, "PLATYPUS");
-    insererMotDansTab2D(&tableau, &taillex, &tailley, 0, 0, FLAG_VERTICAL, "PARFAIT");
+    insererMotDansTab2D(&tableau, &taillex, &tailley, 0, 0, FLAG_HORIZONTAL, test[0]);
+    insererMotDansTab2D(&tableau, &taillex, &tailley, 0, 0, FLAG_VERTICAL, test[2]);
     
     
     AffichageTab2D(tableau, taillex, tailley, 0, 0);
-    
     return 0;
     
 }
