@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define FLAG_HORIZONTAL 1
 #define FLAG_VERTICAL 0
 
@@ -17,7 +18,6 @@ void AffichageTab2D(char **tab, int ligne, int colonne, int i, int j);
 void insererCharDansTab2D(char ***tab, int *taillex, int *tailley, int posx, int posy, char c);
 void insererMotDansTab2D(char ***tab, int *taillex, int *tailley, int posx, int posy, int horizontal, char *mot);
 char accesTad2D(char **tab, int taillex, int tailley, int posx, int posy);
-int NombreChar(char* chaine);
 int TestUnitaires();
 
 
@@ -118,17 +118,6 @@ char accesTad2D(char **tab, int taillex, int tailley, int posx, int posy){
     else return '*'; // Pour éviter un segmentation fault, on retourne le caractère '*' qui représente la valeur par défaut
 }
 
-// Compte le nombre de caractère dans une chaine
-int NombreChar(char* chaine){
-    int i = 0;
-    while(*chaine){
-        i++;
-        chaine++;
-    }
-    return i;
-}
-
-
 // Test unitaires - retourne 0 si tous les tests sont passés avec succès
 int TestUnitaires(){
     int taillex = 1;
@@ -153,7 +142,7 @@ int TestUnitaires(){
     else printf("Taille x instacte : OK\n");
     if(tailley == tailley_ancienne) return 1;
     else printf("Taille y modifiée : OK\n");
-    for(int i = 0; i < NombreChar(chaine_test); i++){
+    for(int i = 0; i < strlen(chaine_test); i++){
         if(tab_test[0][i] != *chaine_test) return 1;
         chaine_test++;
     }
@@ -167,11 +156,13 @@ int TestUnitaires(){
     else printf("Taille x modifiée : OK\n");
     if(tailley != tailley_ancienne) return 1;
     else printf("Taille y intacte : OK\n");
-    for(int i = 0; i < NombreChar(chaine_test); i++){
+    for(int i = 0; i < strlen(chaine_test); i++){
         if(tab_test[i][0] != *chaine_test) return 1;
         chaine_test++;
     }
     printf("Vérification de l'insertion de la chaine verticale: OK\n");
+    
+    /** Implanter un test sur des coordonées aléatoires */
     
     printf("\nTous les tests ont été passés avec succès !\n\n");
     return 0;
